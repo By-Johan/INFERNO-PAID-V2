@@ -388,8 +388,7 @@ AutoFarm:AddButton("Anti Lag", function()
     })
 end)
 
--- 🔹 SWITCH PARA ACTIVAR/DESACTIVAR EL ANTI AFK
-AutoFarm:AddSwitch("Anti AFK", function(state)
+AutoFarm:AddButton("Anti AFK", function(state)
     if state then
         -- ✅ ACTIVAR ANTI AFK
         if getgenv().AntiAfkExecuted and thisoneissocoldww then 
