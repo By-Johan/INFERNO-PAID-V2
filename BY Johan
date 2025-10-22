@@ -13,7 +13,7 @@ print("Anti-AFK ativado!")
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/rafael25ic-blip/phoenix-cracked/refs/heads/main/Librerya%20Phoenix%20Crack"))()
 
-local window = library:AddWindow("🔥 INFERNO PAID V2 | By Johan"), {
+local window = library:AddWindow("🦸🏼‍♂️Super Nova || Cracked by Alejandro 🦸🏼", {
     main_color = Color3.fromRGB(0, 0, 0),
     min_size = Vector2.new(650, 870),
     can_resize = true,
@@ -26,7 +26,7 @@ local AutoFarm = window:AddTab("Farm")
 getgenv()._AutoRepFarmEnabled = false  
 
 -- Switch en la librería
-AutoFarm:AddSwitch("Strength Op (Use it if your minimum ping is 250 ms)", function(state)
+AutoFarm:AddSwitch("Strength Op (Usar si eres de Celular )", function(state)
     getgenv()._AutoRepFarmEnabled = state
     warn("[Auto Rep Farm] Estado cambiado a:", state and "ON" or "OFF")
 end)
@@ -153,7 +153,7 @@ end)
 getgenv()._AutoRepFarmEnabled = false  
 
 -- Switch en la librería
-AutoFarm:AddSwitch("Strength Op (Use it if your minimum ping is less than 150 ms)", function(state)
+AutoFarm:AddSwitch("Strength Super Op (Usar si estas en ugphone o Pc)", function(state)
     getgenv()._AutoRepFarmEnabled = state
     warn("[Auto Rep Farm] Estado cambiado a:", state and "ON" or "OFF")
 end)
@@ -321,21 +321,6 @@ end)
                 )
             end
         end)
-    end
-end)
-AutoFarm:AddSwitch("Lock Position", function(Value)
-    if Value then
-        local currentPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-        getgenv().posLock = game:GetService("RunService").Heartbeat:Connect(function()
-            if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = currentPos
-            end
-        end)
-    else
-        if getgenv().posLock then
-            getgenv().posLock:Disconnect()
-            getgenv().posLock = nil
-        end
     end
 end)
 -- ✅ Optimización visual
@@ -995,130 +980,15 @@ task.spawn(function()
         end
     end
 end)
---Auto Snack Folder
-local autoSnackFolder = AutoFarm:AddFolder("Auto Snacks")
-
-local activeSnacks = {
-    ["Protein Shake"] = false,
-    ["Energy Shake"] = false,
-    ["TOUGH Bar"] = false,
-    ["ULTRA Shake"] = false,
-    ["Energy Bar"] = false,
-    ["Tropical Shake"] = false,
-}
-
-local snackConnections = {}
-
-local function equipAndUse(itemName)
-    local character = player.Character
-    local backpack = player.Backpack
-    
-    if not character or not backpack then return end
-    
-    local tool = backpack:FindFirstChild(itemName)
-    
-    if tool then
-        tool.Parent = character
-        task.wait(0.1)
-        
-        local equippedTool = character:FindFirstChild(itemName)
-        if equippedTool then
-            equippedTool:Activate()
-            
-            local viewportSize = workspace.CurrentCamera.ViewportSize
-            local x, y = viewportSize.X / 2, viewportSize.Y / 2
-            VirtualInputManager:SendMouseButtonEvent(x, y, 0, true, game, 1)
-            task.wait(0.01)
-            VirtualInputManager:SendMouseButtonEvent(x, y, 0, false, game, 1)
-        end
-    end
-end
-
-local function startSnackLoop(itemName)
-    if snackConnections[itemName] then
-        task.cancel(snackConnections[itemName])
-        snackConnections[itemName] = nil
-    end
-    
-    snackConnections[itemName] = task.spawn(function()
-        while activeSnacks[itemName] do
-            local backpack = player.Backpack
-            
-            if backpack and backpack:FindFirstChild(itemName) then
-                equipAndUse(itemName)
-                task.wait(0.5)
-            else
-                activeSnacks[itemName] = false
-                print("No more " .. itemName .. " available!")
-                break
-            end
-            
-            task.wait(0.1)
-        end
-    end)
-end
-
-
-local function startTropicalShakeLoop()
-    if snackConnections["Tropical Shake"] then
-        task.cancel(snackConnections["Tropical Shake"])
-        snackConnections["Tropical Shake"] = nil
-    end
-    
-    snackConnections["Tropical Shake"] = task.spawn(function()
-        while activeSnacks["Tropical Shake"] do
-            local backpack = player.Backpack
-            
-            if backpack and backpack:FindFirstChild("Tropical Shake") then
-                equipAndUse("Tropical Shake")
-                print("Tropical Shake usado! Esperando 15 minutos...")
-                task.wait(900)
-            else
-                activeSnacks["Tropical Shake"] = false
-                print("No more Tropical Shake available!")
-                break
-            end
-        end
-    end)
-end
-
-local function stopSnackLoop(itemName)
-    if snackConnections[itemName] then
-        task.cancel(snackConnections[itemName])
-        snackConnections[itemName] = nil
-    end
-end
-
-for _, snackName in pairs({"Protein Shake", "Energy Shake", "Tough Bar", "Ultra Shake", "Energy Bar"}) do
-    local displayName = snackName == "Tough Bar" and "TOUGH Bar" or (snackName == "Ultra Shake" and "ULTRA Shake" or snackName)
-    
-    autoSnackFolder:AddSwitch(snackName, function(state)
-        activeSnacks[displayName] = state
-        if state then
-            startSnackLoop(displayName)
-        else
-            stopSnackLoop(displayName)
-        end
-    end)
-end
-
-autoSnackFolder:AddSwitch("Tropical Shake 15 Minuts", function(state)
-    activeSnacks["Tropical Shake"] = state
-    if state then
-        startTropicalShakeLoop()
-    else
-        stopSnackLoop("Tropical Shake")
-    end
-end)
--- Advanced Stats dentro de "Calculadora"
+-- Advanced Stats dentro de "estadisticas"
 estadisticas:AddLabel("————————————————————————————")
 estadisticas:AddLabel("stats advanced:").TextSize = 24
 
-local enemyHealthLabel = estadisticas:AddLabel("Enemy Health: N/A")
+local enemyHealthLabel = estadisticas:AddLabel("Enemy Health: 30t")
 enemyHealthLabel.TextSize = 20
 enemyHealthLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 
-local playerDamageLabel = estadisticas:AddLabel("Your Damage: N/A")
+local playerDamageLabel = estadisticas:AddLabel("YourOptimization")
 playerDamageLabel.TextSize = 20
 playerDamageLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 
@@ -1238,7 +1108,7 @@ task.spawn(function()
     end
 end)
 
-local Killer = window:AddTab("Kills OP")
+local Killer = window:AddTab("Farm Kills OP")
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -3422,7 +3292,7 @@ Killer:AddButton("Size NaN", function()
     local args = {"changeSize", 0/0}
     game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("changeSpeedSizeRemote"):InvokeServer(unpack(args))
 end)
-Killer:AddButton("☠️Pegar Muerto☠️", function()
+Killer:AddButton("Auto pegar muerto", function()
     loadstring(game:HttpGet("https://pastebin.com/raw/DsQKiTnC"))()
 end)
 
@@ -3651,7 +3521,7 @@ end)
 
 
 
-local Calculadora = window:AddTab("Calculadora 2", Color3.fromRGB(200, 100, 100))
+local Calculadora = window:AddTab("calculador", Color3.fromRGB(200, 100, 100))
 
 local baseStrength = 0
 local resultadoLabelsDamage = {}
@@ -4627,12 +4497,8 @@ end)
 
 local Credits = window:AddTab("Credits")
 
-Credits:AddLabel("INFERNO PAID V2 BY JOHAN")
-Credits:AddLabel("Tiktok:Johan13098")
-Credits:AddLabel("Discord:Johan041258")
-Credits:AddLabel("Sigueme en esas cuentas para más actualiciones superOps")
-Credits:AddLabel("Próxima actualización:")
-Credits:AddLabel("Fecha:01/01/2026☠️👹")
-Credits:AddLabel("Comparte a tus amigos el script para que lo compren")
-Credits:AddLabel("Gracias por comprar el script INFERNO PAID")
-Credits:AddLabel("Diviertete🥰")
+Credits:AddLabel("TIKTOK: musclelegendscrac")
+Credits:AddLabel("Loser, clown")
+Credits:AddLabel("quieres que publique fotos tuyas y de tus familiares? ")
+Credits:AddLabel("No eres nadie👹")
+Credits:AddLabel("Johan Guitierrez")
