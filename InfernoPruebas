@@ -1037,7 +1037,6 @@ autoSnackFolder:AddSwitch("Tropical Shake 15 Minuts", function(state)
     end
 end)
 
-
 local sessionStatsFolder = AutoFarm:AddFolder("  Session Stats")
 
 local sessionLabels = {
@@ -1125,7 +1124,6 @@ local function createSessionStats()
 
     updateSessionLabels()
 end
-
 
 local estadisticas = window:AddTab("Stats")
 
