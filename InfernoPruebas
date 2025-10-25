@@ -1038,6 +1038,95 @@ autoSnackFolder:AddSwitch("Tropical Shake 15 Minuts", function(state)
 end)
 
 
+local sessionStatsFolder = AutoFarm:AddFolder("  Session Stats")
+
+local sessionLabels = {
+    TimeSpentLabel = sessionStatsFolder:AddLabel("Time spent in this server: 00:00"),
+    StrengthGainedLabel = sessionStatsFolder:AddLabel("Amount of strength gained in this server: 0"),
+    DurabilityGainedLabel = sessionStatsFolder:AddLabel("Amount of durability gained in this server: 0"),
+    AgilityGainedLabel = sessionStatsFolder:AddLabel("Amount of agility gained in this server: 0"),
+    KillsGainedLabel = sessionStatsFolder:AddLabel("Amount of kills gained in this server: 0"),
+    EvilKarmaGainedLabel = sessionStatsFolder:AddLabel("Amount of Evil Karma gained in this server: 0"),
+    GoodKarmaGainedLabel = sessionStatsFolder:AddLabel("Amount of Good Karma gained in this server: 0"),
+    RebirthsGainedLabel = sessionStatsFolder:AddLabel("Amount of rebirths gained in this server: 0")
+}
+
+local function createSessionStats()
+    local player = game.Players.LocalPlayer
+    if not player then
+        warn("Player not found!")
+        return
+    end
+
+    local leaderstats = player:WaitForChild("leaderstats", 10)
+    if not leaderstats then
+        warn("leaderstats not found!")
+        return
+    end
+
+    local strengthStat = leaderstats:WaitForChild("Strength", 5)
+    local durabilityStat = player:WaitForChild("Durability", 5)
+    local agilityStat = player:WaitForChild("Agility", 5)
+    local killsStat = leaderstats:WaitForChild("Kills", 5)
+    local evilKarmaStat = player:WaitForChild("evilKarma", 5)
+    local goodKarmaStat = player:WaitForChild("goodKarma", 5)
+    local rebirthStat = leaderstats:WaitForChild("Rebirths", 5)
+
+    if not (strengthStat and durabilityStat and agilityStat and killsStat and evilKarmaStat and goodKarmaStat and rebirthStat) then
+        warn("One or more stats not found! Check stat names.")
+        return
+    end
+
+    local initialStrength = strengthStat.Value or 0
+    local initialDurability = durabilityStat.Value or 0
+    local initialAgility = agilityStat.Value or 0
+    local initialKills = killsStat.Value or 0
+    local initialEvilKarma = evilKarmaStat.Value or 0
+    local initialGoodKarma = goodKarmaStat.Value or 0
+    local initialRebirths = rebirthStat.Value or 0
+
+    local startTime = tick()
+
+    local function updateSessionLabels()
+        local strengthGained = strengthStat.Value - initialStrength
+        local durabilityGained = durabilityStat.Value - initialDurability
+        local agilityGained = agilityStat.Value - initialAgility
+        local killsGained = killsStat.Value - initialKills
+        local evilKarmaGained = evilKarmaStat.Value - initialEvilKarma
+        local goodKarmaGained = goodKarmaStat.Value - initialGoodKarma
+        local rebirthsGained = rebirthStat.Value - initialRebirths
+
+        sessionLabels.StrengthGainedLabel.Text = "Amount of strength gained in this server: " .. abbreviateNumber(strengthGained)
+        sessionLabels.DurabilityGainedLabel.Text = "Amount of durability gained in this server: " .. abbreviateNumber(durabilityGained)
+        sessionLabels.AgilityGainedLabel.Text = "Amount of agility gained in this server: " .. abbreviateNumber(agilityGained)
+        sessionLabels.KillsGainedLabel.Text = "Amount of kills gained in this server: " .. abbreviateNumber(killsGained)
+        sessionLabels.EvilKarmaGainedLabel.Text = "Amount of Evil Karma gained in this server: " .. abbreviateNumber(evilKarmaGained)
+        sessionLabels.GoodKarmaGainedLabel.Text = "Amount of Good Karma gained in this server: " .. abbreviateNumber(goodKarmaGained)
+        sessionLabels.RebirthsGainedLabel.Text = "Amount of rebirths gained in this server: " .. abbreviateNumber(rebirthsGained)
+    end
+
+    local function updateTimeSpent()
+        local timeSpent = tick() - startTime
+        local minutes = math.floor(timeSpent / 60)
+        local seconds = math.floor(timeSpent % 60)
+        sessionLabels.TimeSpentLabel.Text = string.format("Time spent in this server: %02d:%02d", minutes, seconds)
+    end
+
+    -- Conectar eventos de cambio
+    pcall(function() strengthStat.Changed:Connect(updateSessionLabels) end)
+    pcall(function() durabilityStat.Changed:Connect(updateSessionLabels) end)
+    pcall(function() agilityStat.Changed:Connect(updateSessionLabels) end)
+    pcall(function() killsStat.Changed:Connect(updateSessionLabels) end)
+    pcall(function() evilKarmaStat.Changed:Connect(updateSessionLabels) end)
+    pcall(function() goodKarmaStat.Changed:Connect(updateSessionLabels) end)
+    pcall(function() rebirthStat.Changed:Connect(updateSessionLabels) end)
+
+    game:GetService("RunService").Heartbeat:Connect(updateTimeSpent)
+
+    updateSessionLabels()
+end
+
+
 local estadisticas = window:AddTab("Stats")
 
 local SelectPlayerName = ""
