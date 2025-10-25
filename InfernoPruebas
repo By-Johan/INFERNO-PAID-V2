@@ -890,7 +890,7 @@ end)
 
 
 -- Auto Snack Folder
-local autoSnackFolder = mainTab:AddFolder("  Auto Snacks")
+local autoSnackFolder = AutoFarm:AddFolder("  Auto Snacks")
 
 local activeSnacks = {
     ["Protein Shake"] = false,
