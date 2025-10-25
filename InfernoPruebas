@@ -888,9 +888,7 @@ autoEquipToolsFolder:AddSwitch("Fast Tools", function(Value)
     end
 end)
 
-
--- Auto Snack Folder
-local autoSnackFolder = AutoFarm:AddFolder("  Auto Snacks")
+local autoSnackFolder = AutoFarm:AddFolder("Auto Snacks")
 
 local activeSnacks = {
     ["Protein Shake"] = false,
@@ -1037,7 +1035,7 @@ autoSnackFolder:AddSwitch("Tropical Shake 15 Minuts", function(state)
     end
 end)
 
-local sessionStatsFolder = AutoFarm:AddFolder("  Session Stats")
+local sessionStatsFolder = AutoFarm:AddFolder("Stats Avanzadas")
 
 local sessionLabels = {
     TimeSpentLabel = sessionStatsFolder:AddLabel("Time spent in this server: 00:00"),
