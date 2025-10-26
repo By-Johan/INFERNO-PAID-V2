@@ -888,7 +888,7 @@ autoEquipToolsFolder:AddSwitch("Fast Tools", function(Value)
     end
 end)
 
-local features = AutoFarm:AddTab("Calculadora stats")
+local features = window:AddTab("stats")
 
 -- 📌 Jugador local
 local player = game.Players.LocalPlayer
